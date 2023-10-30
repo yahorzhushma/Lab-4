@@ -26,6 +26,7 @@ class String:
         unique_chars = set(self.string) - set(other_string.string)
         return "".join(unique_chars)
 
+
 while True:
     print("\nГлавное меню:")
     print("1. Класс String")
@@ -113,6 +114,10 @@ while True:
 
             else:
                 print("Неверный выбор. Попробуйте снова.")
+
+    elif choice == '2':
+        while True:
+
 
     elif choice == '0':
         break
