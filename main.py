@@ -8,9 +8,6 @@ class String:
     def count_words(self):
         return len(self.string.split())
 
-    def capitalize(self):
-        return self.string.capitalize()
-
     def is_palindrome(self):
         temp_string = self.string.lower().replace(" ", "")
         return temp_string == temp_string[::-1]
@@ -29,3 +26,53 @@ class String:
     def count_occurrences(self, sub_string):
         return self.string.count(sub_string)
 
+while True:
+    print("\nГлавное меню:")
+    print("1. Класс String")
+    print("2. Класс Country")
+    print("3. Зоомагазин")
+    print("4. Мой класс")
+    print("0. Завершение программы")
+
+    choice = input("Введите номер действия: ")
+
+    if choice == '1':
+        while True:
+            print("\n1. Меню для работы с одной строкой")
+            print("2. Меню для работы с двумя строакми")
+            print("0. Назад")
+
+            choice1 = input("Введите номер действия")
+
+            if choice1 == '1':
+                print("\nМеню для работы с одной строки")
+                print("1. Зеркало")
+                print("2. Сколько слов?")
+                print("3. Палиндром?!")
+                print("0. Назад")
+
+            elif choice1 == '2':
+                print("\nМеню для работы с двумя строками")
+                print("1. Сложение строк")
+                print("2. Одинаковые буквы")
+                print("3. Уникальные буквы")
+                print("4. Сколько вхождений?")
+                print("0. Назад")
+
+            elif choice1 == '0':
+                break
+
+            else:
+                print("Неверный выбор. Попробуйте снова.")
+
+    elif choice == '2':
+
+    elif choice == '3':
+
+    elif choice == '4':
+
+    elif choice == '0':
+        break
+
+    else:
+        print("Неверный выбор. Попробуйте снова.")
