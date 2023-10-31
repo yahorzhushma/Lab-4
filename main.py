@@ -118,7 +118,6 @@ while True:
     elif choice == '2':
         while True:
 
-
     elif choice == '0':
         break
 
