@@ -116,7 +116,6 @@ while True:
                 print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '2':
-        while True:
 
     elif choice == '0':
         break
