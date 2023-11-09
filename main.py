@@ -26,6 +26,14 @@ class String:
         unique_chars = set(self.string) - set(other_string.string)
         return "".join(unique_chars)
 
+class Country:
+    def __init__(self, capital, area, population):
+        self.capital = capital
+        self.area = area
+        self.population = population
+
+    def __str__(self):
+        return f"Столица: {self.capital}, Площадь: {self.area}, Население: {self.population}"
 
 while True:
     print("\nГлавное меню:")
@@ -116,6 +124,89 @@ while True:
                 print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '2':
+        print("\nСоздайте список стран")
+        countries = []
+
+        while True:
+            capital = input("Введите столицу страны или '0' для завершения: ")
+            if capital == '0':
+                break
+            else:
+                area = float(input("Введите площадь территории страны (в кв. км): "))
+                population = int(input("Введите численность населения: "))
+                country = Country(capital, area, population)
+                countries.append(country)
+
+        while True:
+            print("\n1. Вывести список стран по заданной площади")
+            print("2. Вывести список стран по заданной численности населения")
+            print("0. Назад")
+
+            choice = input("Введите номер действия: ")
+
+            if choice == '1':
+                def filter_by_area(countries, min_area, max_area):
+                    filtered_countries =[]
+                    for country in countries:
+                        if min_area <= country.area <= max_area:
+                            filtered_countries.append(country)
+                    return filtered_countries
+
+                while True:
+                    try:
+                        min_area = float(input("Введите минимальное значение площади: "))
+                        max_area = float(input("Введите максимальное значение площади: "))
+                        if min_area <= 0 or max_area <= 0:
+                            print("Площадь должна быть положительным числом.")
+                        elif min_area > max_area:
+                            print("Минимальная площадь оказалась больше максимальной. Введите значения правильно.")
+                        else:
+                            break
+                    except ValueError:
+                        print("Ошибка: Введите корректное значение")
+
+                countries_by_area = filter_by_area(countries, min_area, max_area)
+                if len(countries_by_area) == 0:
+                    print("Стран с такой площадью нет")
+                else:
+                    print(f"Страны с площадью от {min_area} до {max_area} кв. км: ")
+                    for country in countries_by_area:
+                        print(country)
+
+            elif choice == '2':
+                def filter_by_population(countries, min_popul, max_popul):
+                    filtered_countries =[]
+                    for country in countries:
+                        if min_popul <= country.population <= max_popul:
+                            filtered_countries.append(country)
+                    return filtered_countries
+
+                while True:
+                    try:
+                        min_population = int(input("Введите минимальное значение численности населения: "))
+                        max_population = int(input("Введите максимальное значение численности населения: "))
+                        if min_population <= 0 or max_population <= 0:
+                            print("Площадь должна быть положительным числом.")
+                        elif min_population > max_population:
+                            print("Минимальная численность насесления оказалась больше максимальной.")
+                        else:
+                            break
+                    except ValueError:
+                        print("Ошибка: Введите корректное значение")
+
+                countries_by_population = filter_by_population(countries, min_population, max_population)
+                if len(countries_by_population) == 0:
+                    print("Стран с такой численностью нет")
+                else:
+                    print(f"Страны с численностью от {min_population} до {max_population} чел.: ")
+                    for country in countries_by_population:
+                        print(country)
+
+            elif choice == '0':
+                break
+
+            else:
+                print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '0':
         break
