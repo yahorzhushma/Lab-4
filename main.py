@@ -35,6 +35,38 @@ class Country:
     def __str__(self):
         return f"Столица: {self.capital}, Площадь: {self.area}, Население: {self.population}"
 
+class ZooShop:
+    def __init__(self):
+        self.animals = []
+
+    def add_animal(self, animal):
+        self.animals.append(animal)
+
+    def most_expensive_breed(self):
+        if len(self.animals) == 0:
+            return None
+        most_expensive_animal = max(self.animals, key=lambda animal: animal.price)
+        return most_expensive_animal.breed
+
+class Animal:
+    def __init__(self, breed, price):
+        self.breed = breed
+        self.price = price
+
+    def move(self):
+        pass
+
+    def __str__(self):
+        return f"Порода: {self.breed}, Стоимость : {self.price}"
+
+class Fish(Animal):
+    def move(self):
+        return "Плавает"
+
+class Bird(Animal):
+    def move(self):
+        return "Летает"
+
 while True:
     print("\nГлавное меню:")
     print("1. Класс String")
@@ -128,14 +160,17 @@ while True:
         countries = []
 
         while True:
-            capital = input("Введите столицу страны или '0' для завершения: ")
-            if capital == '0':
-                break
-            else:
-                area = float(input("Введите площадь территории страны (в кв. км): "))
-                population = int(input("Введите численность населения: "))
-                country = Country(capital, area, population)
-                countries.append(country)
+            try:
+                capital = input("Введите столицу страны или '0' для завершения: ")
+                if capital == '0':
+                    break
+                else:
+                    area = float(input("Введите площадь территории страны (в кв. км): "))
+                    population = int(input("Введите численность населения: "))
+                    country = Country(capital, area, population)
+                    countries.append(country)
+            except ValueError:
+                print("Ошибка: Введите корректное значение")
 
         while True:
             print("\n1. Вывести список стран по заданной площади")
@@ -207,6 +242,9 @@ while True:
 
             else:
                 print("Неверный выбор. Попробуйте снова.")
+
+    elif choice == '3':
+
 
     elif choice == '0':
         break
