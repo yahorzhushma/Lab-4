@@ -116,7 +116,6 @@ while True:
 
                     elif choice == '0':
                         break
-
                     else:
                         print("Неверный выбор. Попробуйте снова.")
 
@@ -145,13 +144,11 @@ while True:
 
                     elif choice == '0':
                         break
-
                     else:
                         print("Неверный выбор. Попробуйте снова.")
 
             elif choice == '0':
                 break
-
             else:
                 print("Неверный выбор. Попробуйте снова.")
 
@@ -239,12 +236,47 @@ while True:
 
             elif choice == '0':
                 break
-
             else:
                 print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '3':
+        shop = ZooShop()
+        while True:
+            print("1. Добавить рыбок")
+            print("2. Добавить птичек")
+            print("0. Выход")
 
+            choice = input("Введите номер действия: ")
+
+            if choice == '1':
+                while True:
+                    fish_breed = input("Введите породу рыбки или '0' для заврешения: ")
+                    if fish_breed == '0':
+                        break
+                    try:
+                        fish_price = float(input("Введите стоимотсь рыбки: "))
+                    except ValueError:
+                        print("Неверный формат ввода")
+
+                    shop.add_animal(Fish(fish_breed, fish_price))
+
+            elif choice == '2':
+                while True:
+                    bird_breed = input("Введите породу птички или '0' для заврешения: ")
+                    if bird_breed == '0':
+                        break
+                    try:
+                         bird_price = float(input("Введите стоимотсь птички: "))
+                    except ValueError:
+                        print("Неверный формат ввода")
+
+                    shop.add_animal(Bird(bird_breed, bird_price))
+
+            elif choice == '0':
+                break
+
+            else:
+                print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '0':
         break
