@@ -42,11 +42,16 @@ class ZooShop:
     def add_animal(self, animal):
         self.animals.append(animal)
 
-    def most_expensive_breed(self):
+    def get_most_expensive_breed(self):
         if len(self.animals) == 0:
             return None
         most_expensive_animal = max(self.animals, key=lambda animal: animal.price)
         return most_expensive_animal.breed
+
+    def write_to_file(self, filename):
+        with open(filename, "w") as file:
+            for animal in self.animals:
+                file.write(str(animal) + "\n")
 
 class Animal:
     def __init__(self, breed, price):
@@ -57,7 +62,7 @@ class Animal:
         pass
 
     def __str__(self):
-        return f"Порода: {self.breed}, Стоимость : {self.price}"
+        return f"Порода: {self.breed}, Стоимость: {self.price}"
 
 class Fish(Animal):
     def move(self):
@@ -244,6 +249,7 @@ while True:
         while True:
             print("1. Добавить рыбок")
             print("2. Добавить птичек")
+            print("3. Вывести данные о самой дорогой породе")
             print("0. Выход")
 
             choice = input("Введите номер действия: ")
@@ -272,6 +278,13 @@ while True:
 
                     shop.add_animal(Bird(bird_breed, bird_price))
 
+            elif choice == '3':
+                most_expensive_breed = shop.get_most_expensive_breed()
+                if most_expensive_breed:
+                    print(f"Самая дорогая порода: {most_expensive_breed}")
+                else:
+                    print("Магазин пуст")
+
             elif choice == '0':
                 break
 
@@ -279,6 +292,7 @@ while True:
                 print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '0':
+        shop.write_to_file("Животные.txt")
         break
 
     else:
