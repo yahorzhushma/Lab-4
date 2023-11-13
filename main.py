@@ -1,3 +1,4 @@
+from prettytable import PrettyTable
 class String:
     def __init__(self, string):
         self.string = string
@@ -62,7 +63,7 @@ class Animal:
         pass
 
     def __str__(self):
-        return f"Порода: {self.breed}, Стоимость: {self.price}"
+        return f"{self.breed} - {self.price} р."
 
 class Fish(Animal):
     def move(self):
@@ -71,6 +72,13 @@ class Fish(Animal):
 class Bird(Animal):
     def move(self):
         return "Летает"
+
+class Book:
+    def __init__(self, title, author, year, pages):
+        self.title = title
+        self.author = author
+        self.year = year
+        self.pages = pages
 
 while True:
     print("\nГлавное меню:")
@@ -250,6 +258,7 @@ while True:
             print("1. Добавить рыбок")
             print("2. Добавить птичек")
             print("3. Вывести данные о самой дорогой породе")
+            print("4. Вывести всех животных")
             print("0. Выход")
 
             choice = input("Введите номер действия: ")
@@ -285,14 +294,46 @@ while True:
                 else:
                     print("Магазин пуст")
 
+            elif choice == '4':
+                if len(shop.animals) == 0:
+                    print("Магазин пуст")
+                else:
+                    for animal in shop.animals:
+                        print(animal)
+
             elif choice == '0':
+                shop.write_to_file("Животные.txt")
                 break
 
             else:
                 print("Неверный выбор. Попробуйте снова.")
 
+    elif choice == '4':
+        table = PrettyTable()
+        table.field_names = ["Название", "Автор", "Год издания", "Кол-во страниц"]
+
+        books = []
+        while True:
+            try:
+                title = input("Введите название книги или '0' для завершения: ")
+                if title == '0':
+                    break
+                else:
+                    author = input("Введите автора: ")
+                    year = int(input("Введите год издания: "))
+                    if year > 2023:
+                        print("Такой год еще не наступил")
+                        continue
+                    pages = int(input("Введите количество страниц: "))
+                    book = Book(title, author, year, pages)
+                    books.append(book)
+                    table.add_row([title, author, year, pages])
+            except ValueError:
+                print("Ошибка: Введите корректное значение")
+        print(table)
+        break
+
     elif choice == '0':
-        shop.write_to_file("Животные.txt")
         break
 
     else:
