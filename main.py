@@ -47,12 +47,12 @@ class ZooShop:
         if len(self.animals) == 0:
             return None
         most_expensive_animal = max(self.animals, key=lambda animal: animal.price)
-        return most_expensive_animal.breed
+        return [most_expensive_animal.breed, most_expensive_animal.price, most_expensive_animal.move()]
 
-    def write_to_file(self, filename):
+    def write_to_file(self, filename, table):
         with open(filename, "w") as file:
-            for animal in self.animals:
-                file.write(str(animal) + "\n")
+            table_string = table.get_string()
+            file.write(table_string)
 
 class Animal:
     def __init__(self, breed, price):
@@ -63,7 +63,7 @@ class Animal:
         pass
 
     def __str__(self):
-        return f"{self.breed} - {self.price} р."
+        return f"{self.breed} - {self.price} р. - {self.move()}"
 
 class Fish(Animal):
     def move(self):
@@ -74,11 +74,11 @@ class Bird(Animal):
         return "Летает"
 
 class Book:
-    def __init__(self, title, author, year, pages):
-        self.title = title
-        self.author = author
-        self.year = year
-        self.pages = pages
+    def __init__(self, tit, auth, yea, page):
+        self.title = tit
+        self.author = auth
+        self.year = yea
+        self.pages = page
 
 while True:
     print("\nГлавное меню:")
@@ -253,6 +253,8 @@ while True:
                 print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '3':
+        table = PrettyTable()
+        table.field_names = ["Животное", "Стоимость", "Способ передвижения"]
         shop = ZooShop()
         while True:
             print("1. Добавить рыбок")
@@ -273,7 +275,9 @@ while True:
                     except ValueError:
                         print("Неверный формат ввода")
 
-                    shop.add_animal(Fish(fish_breed, fish_price))
+                    fish = Fish(fish_breed, fish_price)
+                    shop.add_animal(fish)
+                    table.add_row([fish_breed, fish_price, fish.move()])
 
             elif choice == '2':
                 while True:
@@ -285,12 +289,17 @@ while True:
                     except ValueError:
                         print("Неверный формат ввода")
 
-                    shop.add_animal(Bird(bird_breed, bird_price))
+                    bird = Bird(bird_breed, bird_price)
+                    shop.add_animal(bird)
+                    table.add_row([bird_breed, bird_price, bird.move()])
 
             elif choice == '3':
+                MEB = PrettyTable()
+                MEB.field_names = ["Самое дорогое животное", "Стоимость", "Способ передвижения"]
                 most_expensive_breed = shop.get_most_expensive_breed()
+                MEB.add_row([most_expensive_breed[0], most_expensive_breed[1], most_expensive_breed[2]])
                 if most_expensive_breed:
-                    print(f"Самая дорогая порода: {most_expensive_breed}")
+                    print(MEB)
                 else:
                     print("Магазин пуст")
 
@@ -298,11 +307,10 @@ while True:
                 if len(shop.animals) == 0:
                     print("Магазин пуст")
                 else:
-                    for animal in shop.animals:
-                        print(animal)
+                    print(table)
 
             elif choice == '0':
-                shop.write_to_file("Животные.txt")
+                shop.write_to_file("Животные.txt", table)
                 break
 
             else:
@@ -331,7 +339,6 @@ while True:
             except ValueError:
                 print("Ошибка: Введите корректное значение")
         print(table)
-        break
 
     elif choice == '0':
         break
