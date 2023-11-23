@@ -79,6 +79,15 @@ class Book:
         self.author = auth
         self.year = yea
         self.pages = page
+        self.table = PrettyTable()
+        self.table.field_names = ["Название", "Автор", "Год издания", "Кол-во страниц"]
+
+    def add_book(self, book):
+        self.table.add_row(book)
+
+def sort_books(table, value):
+        table.sortby = value
+        return print(table)
 
 while True:
     print("\nГлавное меню:")
@@ -317,28 +326,72 @@ while True:
                 print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '4':
-        table = PrettyTable()
-        table.field_names = ["Название", "Автор", "Год издания", "Кол-во страниц"]
-
+        books_table = PrettyTable()
+        books_table.field_names = ["Название", "Автор", "Год издания", "Кол-во страниц"]
         books = []
         while True:
-            try:
-                title = input("Введите название книги или '0' для завершения: ")
-                if title == '0':
-                    break
-                else:
-                    author = input("Введите автора: ")
-                    year = int(input("Введите год издания: "))
-                    if year > 2023:
-                        print("Такой год еще не наступил")
-                        continue
-                    pages = int(input("Введите количество страниц: "))
-                    book = Book(title, author, year, pages)
-                    books.append(book)
-                    table.add_row([title, author, year, pages])
-            except ValueError:
-                print("Ошибка: Введите корректное значение")
-        print(table)
+            print("1. Добавить книги")
+            print("2. Сортировать книги")
+            print("3. Вывести книги")
+            print("0. Выход")
+
+            choice = input("Введите номер действия: ")
+
+            if choice == '1':
+                while True:
+                    try:
+                        title = input("Введите название книги или '0' для завершения: ")
+                        if title == '0':
+                            break
+                        else:
+                            author = input("Введите автора: ")
+                            year = int(input("Введите год издания: "))
+                            if year > 2023:
+                                print("Такой год еще не наступил")
+                                continue
+                            pages = int(input("Введите количество страниц: "))
+                            book = Book(title, author, year, pages)
+                            books.append(book)
+                            books_table.add_row([title, author, year, pages])
+                    except ValueError:
+                        print("Ошибка: Введите корректное значение")
+
+            elif choice == '2':
+                while True:
+                    print("1. По названию")
+                    print("2. По автору")
+                    print("3. По году издания")
+                    print("4. По количеству страниц")
+                    print("0. Выход")
+
+                    choice = input("Введите номер действия: ")
+
+                    if choice == '1':
+                        sort_books(books_table, "Название")
+
+                    elif choice == '2':
+                        sort_books(books_table, "Автор")
+
+                    elif choice == '3':
+                        sort_books(books_table, "Год издания")
+
+                    elif choice == '4':
+                        sort_books(books_table, "Кол-во страниц")
+
+                    elif choice == '0':
+                        break
+
+                    else:
+                        print("Неверный выбор. Попробуйте снова.")
+
+            elif choice == '3':
+                print(books_table)
+
+            elif choice == '0':
+                break
+
+            else:
+                print("Неверный выбор. Попробуйте снова.")
 
     elif choice == '0':
         break
