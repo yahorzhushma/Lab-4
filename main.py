@@ -368,16 +368,16 @@ while True:
                     choice = input("Введите номер действия: ")
 
                     if choice == '1':
-                        sort_books(books_table, "Название")
+                        Book.sort_books(books_table, "Название")
 
                     elif choice == '2':
-                        sort_books(books_table, "Автор")
+                        Book.sort_books(books_table, "Автор")
 
                     elif choice == '3':
-                        sort_books(books_table, "Год издания")
+                        Book.sort_books(books_table, "Год издания")
 
                     elif choice == '4':
-                        sort_books(books_table, "Кол-во страниц")
+                        Book.sort_books(books_table, "Кол-во страниц")
 
                     elif choice == '0':
                         break
