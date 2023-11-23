@@ -85,7 +85,8 @@ class Book:
     def add_book(self, book):
         self.table.add_row(book)
 
-def sort_books(table, value):
+    @staticmethod
+    def sort_books(table, value):
         table.sortby = value
         return print(table)
 
